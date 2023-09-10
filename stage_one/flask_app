@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+rom flask import Flask, request, jsonify
 import datetime
 import os  # Import the 'os' module for accessing environment variables
 from dotenv import load_dotenv  # Import 'load_dotenv' for loading environment variables from a .flaskenv file
@@ -37,6 +37,7 @@ def get_info():
         "slack_name": slack_name,
         "current_day": current_day,
         "track": track,
+	"utc_time": current_utc_time,
         "github_file_url": github_file_url,
         "github_repo_url": github_repo_url,
         "status_code": 200
