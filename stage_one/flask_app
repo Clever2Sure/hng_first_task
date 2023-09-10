@@ -29,8 +29,8 @@ def get_info():
         utc_time = "Validation Error: UTC time not within +/-2 minutes of 0 seconds."
     
     # GitHub URLs
-    github_file_url = "https://github.com/Clever2Sure/hng_task/blob/main/flask_app"
-    github_repo_url = "https://github.com/Clever2Sure/hng_task.git"
+    github_file_url = "https://github.com/Clever2Sure/hng_first_task/blob/main/stage_one/flask_app"
+    github_repo_url = "https://github.com/Clever2Sure/hng_first_task.git"
     
     # Create the JSON response
     response = {
