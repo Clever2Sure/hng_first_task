@@ -1,0 +1,48 @@
+from flask import Flask, request, jsonify
+import datetime
+import os  # Import the 'os' module for accessing environment variables
+from dotenv import load_dotenv  # Import 'load_dotenv' for loading environment variables from a .flaskenv file
+
+# Load environment variables from .flaskenv
+load_dotenv()
+
+app = Flask(__name__)
+
+# Access environment variables and configure Flask settings
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['DEBUG'] = os.getenv('DEBUG')
+
+@app.route('/api', methods=['GET'])
+def get_info():
+    # Retrieve query parameters
+    slack_name = request.args.get('slack_name')
+    track = request.args.get('track')
+    
+    #Get the current day of the week
+    current_day = datetime.datetime.utcnow().strftime('%A')
+    
+    #Get the current UTC time with validation of +/-2 minutes
+    current_utc_time = datetime.datetime.utcnow()
+    if abs(current_utc_time.second - 0) <= 2:
+        utc_time = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    else:
+        utc_time = "Validation Error: UTC time not within +/-2 minutes of 0 seconds."
+    
+    # GitHub URLs
+    github_file_url = "https://github.com/Clever2Sure/hng_task/blob/main/flask_app"
+    github_repo_url = "https://github.com/Clever2Sure/hng_task.git"
+    
+    # Create the JSON response
+    response = {
+        "slack_name": slack_name,
+        "current_day": current_day,
+        "track": track,
+        "github_file_url": github_file_url,
+        "github_repo_url": github_repo_url,
+        "status_code": 200
+    }
+    
+    return jsonify(response)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5002)
